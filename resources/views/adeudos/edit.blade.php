@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-warning text-dark">
-                    <h4 class="mb-0">Editar Aseguradora</h4>
+                    <h4 class="mb-0">Editar Adeudo</h4>
                 </div>
                 <div class="card-body">
                     
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">
+                            <label for="tipo" class="form-label">
                                 Tipo <span class="text-danger">*</span>
                             </label>
                             <input 
@@ -110,7 +110,8 @@
                                 Costo <span class="text-danger">*</span>
                             </label>
                             <input 
-                                type="text" 
+                                type="number"
+                                step="0.01" 
                                 class="form-control @error('costo') is-invalid @enderror" 
                                 id="costo" 
                                 name="costo" 
@@ -126,11 +127,11 @@
                                 Fecha <span class="text-danger">*</span>
                             </label>
                             <input 
-                                type="date-local" 
+                                type="date" 
                                 class="form-control @error('fecha') is-invalid @enderror" 
                                 id="fecha" 
                                 name="fecha" 
-                                value="{{ old('fecha', $adeudos->fecha->format('d-m-Y')) }}"
+                                value="{{ old('fecha', $adeudos->fecha ? \Carbon\Carbon::parse($adeudos->fecha)->format('Y-m-d') : '') }}"
                                 required>
                             @error('fecha')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -155,7 +156,7 @@
 
                         <div class="mb-3">
                             <label for="clave_area" class="form-label">
-                                Clave_area <span class="text-danger">*</span>
+                                Clave de area <span class="text-danger">*</span>
                             </label>
                             <input 
                                 type="text" 
@@ -171,8 +172,8 @@
 
                         <div class="alert alert-info">
                             <small>
-                                <strong>Fecha de creación:</strong> {{ $adeudos->created_at->format('d/m/Y H:i') }}<br>
-                                <strong>Última actualización:</strong> {{ $adeudos->updated_at->format('d/m/Y H:i') }}
+                                <strong>Fecha de creación:</strong> {{ optional($adeudos->created_at)->format('d/m/Y H:i') }}
+                                <strong>Última actualización:</strong> {{ optional($adeudos->updated_at)->format('d/m/Y H:i') }}
                             </small>
                         </div>
 
